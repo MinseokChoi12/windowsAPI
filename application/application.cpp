@@ -25,6 +25,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    // 1. wndclass 정의 -> 윈도우의 기반(여러가지 속성)이 되는 클래스를 정의해준다
+    // 2. 메모리상에 윈도우를 할당 -> CreateWindow
+    // 3. showwindow 함수를 통해서 윈도우가 화면에 보여진다.
+    // 4. wndclass를 정의할때 함수포인터에 넣어준 loop(wndproc)가 매프레임마다 실행한다
+
+    // windows는 크게 3가지 라이브러리로 이루어져 있음
+    // 메모리를 관리하고 실행시키는 커널(Kernel)
+    // User interface와 관리하는 user
+    // 화면처리와 그래픽을 담당하는 GDI로 이루어짐
+
     // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
@@ -97,6 +107,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   // (lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
@@ -105,6 +116,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   SetWindowPos(hWnd, nullptr, 0, 0, 1920, 1080, 0);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -125,6 +137,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+        {
+        
+        }
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -146,8 +163,53 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+
+            // 스톡 오브젝트 : 자주 쓰는 GDI
+            HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
+            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
+
+            Rectangle(hdc, -1, -1, 1920, 1080);
+
+            /*HBRUSH hClearBrush = CreateSolidBrush(RGB(100, 100, 100));
+            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);*/
+
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+            HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));         
+            HBRUSH hBlueBrush = CreateSolidBrush(RGB(0, 0, 100));         
+
+            HPEN oldPen = (HPEN)SelectObject(hdc, hRedPen);
+            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hGreenBrush);
+
+            Rectangle(hdc, 100, 100, 200, 200);
+
+            SelectObject(hdc, hBlueBrush);
+
+            Ellipse(hdc, 300, 300, 350, 350);
+
+            
+
+            SelectObject(hdc, oldPen);
+            SelectObject(hdc, oldBrush);
+
+            DeleteObject(hBlueBrush);
+            DeleteObject(oldPen);
+            DeleteObject(oldBrush);
+
             EndPaint(hWnd, &ps);
+
+            // 문자
+            // HFONT
+            // HBITMAP
+
+            // DC 정리
+            // 1. PEN BRUSH 핸들을 선언
+            // 2. GDI 오브젝트를 생성
+            // 3. 생성된 오브젝트로 hdc 세팅해줘야한다. (selectobject)
+            // 4. 사용한 후 기존의 오브젝트로 되돌린다(해제)
+            // 5. 핸들을 삭제한다.
+
         }
         break;
     case WM_DESTROY:

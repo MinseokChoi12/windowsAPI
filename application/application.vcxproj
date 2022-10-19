@@ -140,12 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Maths.h" />
+    <ClInclude Include="msApplication.h" />
+    <ClInclude Include="msEntity.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="application.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="msApplication.cpp" />
+    <ClCompile Include="msEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="application.rc" />

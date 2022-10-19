@@ -1,8 +1,9 @@
 ﻿// application.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "framework.h"
+#include "Common.h"
 #include "application.h"
+#include "msApplication.h"
 
 #define MAX_LOADSTRING 100
 
@@ -55,11 +56,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 기본 메시지 루프입니다:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+        else
+        {
+            // 게임 실행
+            ms::Application::GetInstance().Tick();
+        }
+    }
+
+    // 종료 되었을 때
+    if (WM_QUIT == msg.message)
+    {
+        // 메모리 해제 작업
     }
 
     return (int) msg.wParam;
@@ -107,9 +125,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   WindowData windowData;
+   windowData.width = 1920;
+   windowData.height = 1080;
+
    // (lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+   windowData.hWnd = hWnd;
+   windowData.hdc = nullptr;
 
    if (!hWnd)
    {
@@ -119,6 +144,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    SetWindowPos(hWnd, nullptr, 0, 0, 1920, 1080, 0);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   ms::Application::GetInstance().Initialize(windowData);
 
    return TRUE;
 }
@@ -159,43 +186,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_KEYDOWN:
+        {
+
+        }
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 
             // 스톡 오브젝트 : 자주 쓰는 GDI
+            // 화면지우기
             HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
             HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
-
             Rectangle(hdc, -1, -1, 1920, 1080);
 
-            /*HBRUSH hClearBrush = CreateSolidBrush(RGB(100, 100, 100));
-            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);*/
-
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
-            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-            HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));         
-            HBRUSH hBlueBrush = CreateSolidBrush(RGB(0, 0, 100));         
-
-            HPEN oldPen = (HPEN)SelectObject(hdc, hRedPen);
-            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hGreenBrush);
-
-            Rectangle(hdc, 100, 100, 200, 200);
-
-            SelectObject(hdc, hBlueBrush);
-
-            Ellipse(hdc, 300, 300, 350, 350);
-
-            
-
-            SelectObject(hdc, oldPen);
-            SelectObject(hdc, oldBrush);
-
-            DeleteObject(hBlueBrush);
-            DeleteObject(oldPen);
-            DeleteObject(oldBrush);
+            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...            
 
             EndPaint(hWnd, &ps);
 

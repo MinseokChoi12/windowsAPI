@@ -141,10 +141,16 @@
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="msApplication.h" />
     <ClInclude Include="msEntity.h" />
+    <ClInclude Include="msGameObject.h" />
+    <ClInclude Include="msLogoScene.h" />
+    <ClInclude Include="msPlayer.h" />
+    <ClInclude Include="msScene.h" />
+    <ClInclude Include="msSceneManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -152,6 +158,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="msApplication.cpp" />
     <ClCompile Include="msEntity.cpp" />
+    <ClCompile Include="msGameObject.cpp" />
+    <ClCompile Include="msLogoScene.cpp" />
+    <ClCompile Include="msPlayer.cpp" />
+    <ClCompile Include="msScene.cpp" />
+    <ClCompile Include="msSceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="application.rc" />

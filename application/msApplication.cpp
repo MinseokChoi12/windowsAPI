@@ -1,8 +1,21 @@
 #include "msApplication.h"
+#include "msSceneManager.h"
+
 
 namespace ms
-{
-	Application Application::mInstance;
+{	void Application::Initialize(WindowData data)
+	{
+		mWindowData = data;
+		mWindowData.hdc = GetDC(data.hWnd);
+
+		SceneManager::Initialize();
+	}
+
+	void Application::Tick()
+	{
+		SceneManager::Tick();
+		SceneManager::Render(mWindowData.hdc);
+	}
 
 	Application::Application()
 	{
@@ -11,17 +24,9 @@ namespace ms
 
 	Application::~Application()
 	{
+		SceneManager::Release();
+
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
-	}
-
-	void Application::Initialize(WindowData data)
-	{
-		mWindowData = data;
-		mWindowData.hdc = GetDC(data.hWnd);
-	}
-
-	void Application::Tick()
-	{
 	}
 }
 

@@ -11,6 +11,24 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{e3255a0b-c95b-445f-9253-df4771ad6a60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{fb176e72-9a14-426c-a607-7c8bae57b925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{f38c528b-e19d-4f6a-b6af-aba2ec83e3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Base">
+      <UniqueIdentifier>{d8573ecc-a059-4d41-a464-abdf6ed9d513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{13268a03-c978-4bb8-9d62-dcb07a56ffc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{a660fbb0-2e4d-4cea-a20d-c1419341ccc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{8b4bf6a6-f98e-4ba0-b127-6adb924a8a5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h">
@@ -31,10 +49,30 @@
     <ClInclude Include="Maths.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="msApplication.h">
+    <ClInclude Include="def.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="msEntity.h" />
+    <ClInclude Include="msEntity.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="msApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="msGameObject.h">
+      <Filter>GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="msPlayer.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="msSceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="msScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="msLogoScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="application.rc">
@@ -53,9 +91,26 @@
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="msApplication.cpp">
+    <ClCompile Include="msEntity.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="msEntity.cpp" />
+    <ClCompile Include="msApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="msGameObject.cpp">
+      <Filter>GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="msPlayer.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="msSceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="msScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="msLogoScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

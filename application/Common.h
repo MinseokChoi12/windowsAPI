@@ -27,3 +27,4 @@ struct WindowData
 		width = 0;
 	}
 };
+

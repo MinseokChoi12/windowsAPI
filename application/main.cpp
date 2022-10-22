@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "application.h"
 #include "msApplication.h"
+#include "time.h"
 
 #define MAX_LOADSTRING 100
 
@@ -23,9 +24,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+    srand(time(NULL));
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     // 1. wndclass 정의 -> 윈도우의 기반(여러가지 속성)이 되는 클래스를 정의해준다
     // 2. 메모리상에 윈도우를 할당 -> CreateWindow
     // 3. showwindow 함수를 통해서 윈도우가 화면에 보여진다.

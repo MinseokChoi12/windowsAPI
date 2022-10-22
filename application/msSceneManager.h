@@ -12,6 +12,8 @@ namespace ms
 		static void Render(HDC hdc);
 		static void Release();
 
+		static Scene* GetPlayScene() { return mPlayScene; }
+
 	private:
 		static Scene* mScenes[(UINT)eSceneType::Max];
 		static Scene* mPlayScene;
